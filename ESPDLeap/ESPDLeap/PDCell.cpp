@@ -44,7 +44,7 @@ void PDCell::setNextStrat(PDCell::Strategy nextStrat) {
 
 void PDCell::updateStrat() {
 	this->lastStrat = this->strat;
-	this->strat = nextStrat;
+	this->strat = this->nextStrat;
 }
 
 void PDCell::updateColor() {

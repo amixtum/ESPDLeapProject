@@ -2,10 +2,12 @@
 
 #define _USE_MATH_DEFINES
 #include <cmath>
+#include <cstdlib>
+#include <ctime>
 
 class PDOrganism : public sf::Drawable {
 public:
-	PDOrganism(sf::Vector2i dimensions, float sqrSize, double b);
+	PDOrganism(sf::Vector2i dimensions, float sqrSize, double b, bool random);
 
 	void update();
 

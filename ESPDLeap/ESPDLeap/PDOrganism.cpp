@@ -1,14 +1,28 @@
 #include "PDOrganism.h"
 #include <iostream>
 
-PDOrganism::PDOrganism(sf::Vector2i dimensions, float sqrSize, double b) : dimensions(dimensions), sqrSize(sqrSize), b(b) {
-	for (int i = 0; i < dimensions.y; ++i) {
-		for (int k = 0; k < dimensions.x; ++k) {
-			if (i == dimensions.x / 2 && k == dimensions.y / 2) {
-				cells.push_back(PDCell(PDCell::Strategy::D, sf::Vector2f(k * sqrSize, i * sqrSize), sqrSize));
+PDOrganism::PDOrganism(sf::Vector2i dimensions, float sqrSize, double b, bool random) : dimensions(dimensions) {
+	this->sqrSize = sqrSize;
+	this->b = b;
+
+	if (random) {
+		srand(time(NULL));
+
+		for (int i = 0; i < dimensions.y; ++i) {
+			for (int k = 0; k < dimensions.x; ++k) {
+				cells.push_back(PDCell((std::rand()%1000 < 750) ? PDCell::Strategy::C : PDCell::Strategy::D, sf::Vector2f(k * sqrSize, i * sqrSize), sqrSize));
 			}
-			else {
-				cells.push_back(PDCell(PDCell::Strategy::C, sf::Vector2f(k * sqrSize, i * sqrSize), sqrSize));
+		}
+	}
+	else {
+		for (int i = 0; i < dimensions.y; ++i) {
+			for (int k = 0; k < dimensions.x; ++k) {
+				if (i == dimensions.x / 2 && k == dimensions.y / 2) {
+					cells.push_back(PDCell(PDCell::Strategy::D, sf::Vector2f(k * sqrSize, i * sqrSize), sqrSize));
+				}
+				else {
+					cells.push_back(PDCell(PDCell::Strategy::C, sf::Vector2f(k * sqrSize, i * sqrSize), sqrSize));
+				}
 			}
 		}
 	}
@@ -28,24 +42,18 @@ void PDOrganism::getHeighestSumIndexAround(int centerIndex) {
 	double max = surroundingCells[0]->getGenSum();
 	int maxIndex = 0;
 
-	for (int i = 0; i < surroundingCells.size(); ++i) {
+	for (unsigned int i = 0; i < surroundingCells.size(); ++i) {
 		if (surroundingCells[i]->getGenSum() > max) {
 			max = surroundingCells[i]->getGenSum();
 			maxIndex = i;
 		}
 	}
 
-	if (max > 100) {
-		char stratName = (surroundingCells[maxIndex]->getStrat() == PDCell::Strategy::C) ? 'C' : 'D';
-
-		//std::cout << "At position : " << getIndexFromIntersect(self->getMiddle()) << "\n The max payoff is: " << surroundingCells[maxIndex]->getGenSum() << "\nStrategy is :  " << stratName << "\n";
-	}
-
 	self->setNextStrat(surroundingCells[maxIndex]->getStrat());
 }
 
 void PDOrganism::compareAllCells() {
-	for (int i = 0; i < cells.size(); ++i) {
+	for (unsigned int i = 0; i < cells.size(); ++i) {
 		getHeighestSumIndexAround(i);
 	}
 
@@ -67,7 +75,7 @@ void PDOrganism::playGamesAt(int cellIndex) {
 }
 
 void PDOrganism::playAllGames() {
-	for (int i = 0; i < cells.size(); ++i) {
+	for (unsigned int i = 0; i < cells.size(); ++i) {
 		playGamesAt(i);
 	}
 }
@@ -86,11 +94,13 @@ std::vector<PDCell*> PDOrganism::getNeighborCells(int cellIndex) {
 	for (int i = intVect.x - 1; i <= intVect.x + 1; ++i) {
 		for (int k = intVect.y - 1; k <= intVect.y + 1; ++k) {
 			if (i >= 0 && i < dimensions.x && k >= 0 && k < dimensions.y) {
-				int intersectIndex = getIndexFromVector(sf::Vector2i(i,k));
+				int intersectIndex = getIndexFromVector(sf::Vector2i(k,i));
 				returnVect.push_back(&cells[intersectIndex]);
 			}
 		}
 	}
+
+	//std::cout << returnVect.size() << "\n";
 
 	return returnVect;
 }
