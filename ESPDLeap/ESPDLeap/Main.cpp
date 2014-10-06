@@ -15,7 +15,9 @@ int main()
 {
 	sf::RenderWindow window(sf::VideoMode(1600, 900), "SFML works!");
 
-	PDOrganism org(sf::Vector2i(225, 225), 4, 1.9);
+	std::srand(std::time(nullptr));
+
+	PDOrganism org(sf::Vector2i(225, 255), 4, 1.4, true);
 
 	float sleepTime = 0.05f;
 	float timeSinceSleep = 0;
