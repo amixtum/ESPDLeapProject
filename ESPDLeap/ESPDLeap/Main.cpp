@@ -28,9 +28,13 @@ int main()
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
+				org++;
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
+				org--;
+			}
 		}
-
-		
 
 		window.clear();
 		window.draw(org);

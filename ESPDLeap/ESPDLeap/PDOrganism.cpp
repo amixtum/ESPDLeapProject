@@ -81,6 +81,8 @@ std::vector<PDCell*> PDOrganism::getNeighborCells(int cellIndex) {
 
 	std::vector<PDCell*> returnVect;
 
+	returnVect.reserve(9);
+
 	for (int i = intVect.x - 1; i <= intVect.x + 1; ++i) {
 		for (int k = intVect.y - 1; k <= intVect.y + 1; ++k) {
 			if (i >= 0 && i < dimensions.x && k >= 0 && k < dimensions.y) {

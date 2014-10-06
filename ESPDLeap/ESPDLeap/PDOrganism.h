@@ -8,6 +8,16 @@ public:
 	PDOrganism(sf::Vector2i dimensions, float sqrSize, double b);
 
 	void update();
+
+	void operator++() {
+		b += 0.1;
+	}
+	void operator--() {
+		b -= 0.1;
+	}
+	void setB(double b) {
+		this->b = b;
+	}
 private:
 	int getIndexFromIntersect(sf::Vector2f vect);
 
