@@ -1,6 +1,8 @@
 ESPDLeap
 ========
 
-This is a more optimized implementation of the evolutionary spatial prisoner's dillemma written in C++.
+This is a more optimized implementation than my previous attempt at the evolutionary spatial prisoner's dillemma written in C++.
 
-I plan to add the ability to interact with the simulation via Leap Motion in the near future.
+Update
+==========
+Leap is now functional. If you plan to use this code, see http://sfml-dev.org and https://developer.leapmotion.com/ for information on building a project with these technologies.
