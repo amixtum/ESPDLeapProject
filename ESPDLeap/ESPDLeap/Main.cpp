@@ -16,13 +16,11 @@ int main()
 {
 	Leap::Controller controller;
 
-	float velocityThreshold = 700.f;
+	float velocityThreshold = 600.f;
 
 	while (!controller.isConnected()){}
 
 	sf::RenderWindow window(sf::VideoMode(800, 800), "SFML works!");
-
-	std::srand(std::time(nullptr));
 
 	PDOrganism org(sf::Vector2i(199, 199), 4, 1.9, true);
 

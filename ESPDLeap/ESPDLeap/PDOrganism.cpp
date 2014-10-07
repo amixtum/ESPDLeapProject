@@ -30,11 +30,10 @@ PDOrganism::PDOrganism(sf::Vector2i dimensions, float sqrSize, double b, bool ra
 
 void PDOrganism::update() {
 	playAllGames();
-	//std::cout << cells[getIndexFromVector(sf::Vector2i(dimensions.x / 2, dimensions.y / 2))].getGenSum();
 	compareAllCells();
 }
 
-void PDOrganism::getHeighestSumIndexAround(int centerIndex) {
+void PDOrganism::setNextStratAt(int centerIndex) {
 	PDCell *self = &cells[centerIndex];
 
 	std::vector<PDCell*> surroundingCells = getNeighborCells(centerIndex);
@@ -54,7 +53,7 @@ void PDOrganism::getHeighestSumIndexAround(int centerIndex) {
 
 void PDOrganism::compareAllCells() {
 	for (unsigned int i = 0; i < cells.size(); ++i) {
-		getHeighestSumIndexAround(i);
+		setNextStratAt(i);
 	}
 
 	for (auto it = cells.begin(); it != cells.end(); ++it) {
@@ -99,8 +98,6 @@ std::vector<PDCell*> PDOrganism::getNeighborCells(int cellIndex) {
 			}
 		}
 	}
-
-	//std::cout << returnVect.size() << "\n";
 
 	return returnVect;
 }
