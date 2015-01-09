@@ -14,10 +14,12 @@
 
 int main()
 {
+	// comment this out if you don't have a leap
 	Leap::Controller controller;
 
 	float velocityThreshold = 600.f;
-
+	
+	// comment this out if you don't have a leap
 	while (!controller.isConnected()){}
 
 	sf::RenderWindow window(sf::VideoMode(800, 800), "SFML works!");
@@ -43,6 +45,7 @@ int main()
 			}
 		}
 
+		// comment this out if you don't have a leap
 		for (Leap::Hand hand : controller.frame().hands()) {
 			if (hand.isRight()) {
 				if (hand.palmVelocity().y > velocityThreshold) {
